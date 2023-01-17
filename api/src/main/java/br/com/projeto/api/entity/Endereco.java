@@ -1,13 +1,17 @@
-package br.com.projeto.api;
-
+package br.com.projeto.api.entity;
 import lombok.Data;
-import javax.persistence.*;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+
 
 @Data
 @Entity
-@Table(name = "addresses")
-public class Address {
+@Table(name = "enderecos")
+public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -20,10 +24,12 @@ public class Address {
     @NotNull
     private String cidade;
 
+@Column(unique=true)
+private Boolean isMain;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "person_id", nullable = false)
-    private Person person;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnoreprivate Person person;
    
-
 }
