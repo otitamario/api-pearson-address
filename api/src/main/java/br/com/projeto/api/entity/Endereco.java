@@ -24,7 +24,7 @@ public class Endereco {
     @NotNull
     private String cidade;
 
-private Boolean isMain;
+    private Boolean isMain;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "person_id", nullable = false)
