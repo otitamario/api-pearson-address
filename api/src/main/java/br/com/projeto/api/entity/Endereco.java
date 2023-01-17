@@ -6,11 +6,11 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-
+import com.fasterxml.jackson.annotation.*;
 
 @Data
 @Entity
-@Table(name = "enderecos")
+@Table(name = "enderecos",uniqueConstraints = { @UniqueConstraint(columnNames = { "isMain", "person_id" }) })
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,12 +24,11 @@ public class Endereco {
     @NotNull
     private String cidade;
 
-@Column(unique=true)
 private Boolean isMain;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "person_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnoreprivate Person person;
+    @JsonIgnore Person person;
    
 }
